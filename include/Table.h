@@ -1,19 +1,23 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <map>
 
 using std::string;
 using std::vector;
+using std::map;
 
 class Table
 {
-//public:
-    string getTable();
-
-    void buildTable();
-    bool updateTable(const unsigned short field, const string value);
+public:
+    Table() : emptyField("   "), horizontalSeparator("---|---|---"), verticalSeparator("|"), newLine("\n") { setPlayableFields(); };
+    void setPlayableFields();
+    vector<string> getTable();
+    vector<string> getEmptyTable();
+    vector<string> getTableWithFieldNumbers();
+    void updateTable(Table& t, const unsigned short field, const string value);
 private:
-    vector<string> table;
+    map<int, string> playableFields;
     string emptyField; // "   "
     string horizontalSeparator; // "---|---|---"
     string verticalSeparator; // "|"
