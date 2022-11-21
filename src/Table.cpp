@@ -15,6 +15,18 @@ void Table::updateTable(Table& t, const unsigned short field, const string value
     t.playableFields.insert_or_assign(field, value);
 }
 
+/*Translates sign given by user (X or O) to value ready for inserting into playableFields container.
+    X -> " X "
+    O -> " O "
+*/
+string Table::translateSignForPlayableFields(const string sign)
+{
+    if(sign == "X")
+        return " X ";
+    else
+        return " O ";
+}
+
 /* Returns empty table as a vector<string> */
 vector<string> Table::getEmptyTable()
 {

@@ -16,6 +16,7 @@ public:
     vector<string> getEmptyTable();
     vector<string> getTableWithFieldNumbers();
     void updateTable(Table& t, const unsigned short field, const string value);
+    string translateSignForPlayableFields(const string sign);
 private:
     map<int, string> playableFields;
     string emptyField; // "   "
