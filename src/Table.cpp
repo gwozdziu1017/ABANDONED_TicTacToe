@@ -12,7 +12,7 @@ void Table::setPlayableFields()
 /* Updates table at given field with given sign */
 void Table::updateTable(Table& t, const unsigned short field, const string value)
 {
-    t.playableFields.insert_or_assign(field, value);
+    t.playableFields.insert_or_assign(field, translateSignForPlayableFields(value));
 }
 
 /*Translates sign given by user (X or O) to value ready for inserting into playableFields container.
