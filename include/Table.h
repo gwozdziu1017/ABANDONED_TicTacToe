@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <memory>
 
 using std::string;
 using std::vector;
@@ -15,7 +16,7 @@ public:
     vector<string> getTable();
     vector<string> getEmptyTable();
     vector<string> getTableWithFieldNumbers();
-    void updateTable(Table& t, const unsigned short field, const string value);
+    void updateTable(std::unique_ptr<Table>& t, const unsigned short field, const string value);
     string translateSignForPlayableFields(const string sign);
 private:
     map<int, string> playableFields;

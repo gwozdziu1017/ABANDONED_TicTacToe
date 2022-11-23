@@ -23,3 +23,11 @@ set<unsigned short> Player::getMoveMatrix()
 {
     return this->moveMatrix;
 }
+
+/*  Returns true ig f in move matrix there is combination of fields that means winning.
+    e.g. [1, 2, 3] or [1, 5, 9]
+*/
+bool Player::getIsWinningComboInMoveMatrix()
+{
+    return true;
+}

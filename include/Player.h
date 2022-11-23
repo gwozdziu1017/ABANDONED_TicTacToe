@@ -19,6 +19,7 @@ public:
     void addToMoveMatrix(const unsigned short move);
     string getName();
     set<unsigned short> getMoveMatrix();
+    bool getIsWinningComboInMoveMatrix();
 
 private:
     string name;
