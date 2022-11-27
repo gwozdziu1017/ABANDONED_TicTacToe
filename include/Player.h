@@ -5,9 +5,11 @@
 #pragma once
 #include <string>
 #include <set>  // moveMatrix
+#include <vector> // winningCombos
 
 using std::string;
 using std::set;
+using std::vector;
 
 class Player
 {
@@ -19,6 +21,7 @@ public:
     void addToMoveMatrix(const unsigned short move);
     string getName();
     set<unsigned short> getMoveMatrix();
+    bool getIsWinningComboInMoveMatrix();
 
 private:
     string name;
