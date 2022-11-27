@@ -24,15 +24,15 @@ private:
 
     bool isTurnEven();
     pair<int, string> getPlayerMove();
-    bool isValidMove(const short uint);
+    bool isValidMove(const pair<int, string>);
     bool isValidMoveField(const int);
     bool isValidMoveValue(const string);
-    void updatePlayerMatrix(pair<Player, Player>&, const short uint);
+    void updatePlayerMatrix(pair<Player, Player>&, const short unsigned int);
     short getPlayerChoiceAtBeginning();
-    bool isWinningCombo(const pair<Player, Player>&);
+    bool isWinningCombo(pair<Player, Player>&);
 
     pair<Player, Player> createPlayers();
-    string getNameForPlayers();
+    string getNameForPlayer();
 
 private:
     short turn;

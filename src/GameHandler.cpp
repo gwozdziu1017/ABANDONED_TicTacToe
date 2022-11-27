@@ -13,17 +13,23 @@ void GameHandler::runGame()
         const short userChoice = this->getPlayerChoiceAtBeginning();   // get in loop and return only if valid value
     
         switch(userChoice)
+        {
             case 2:
+            {
                 //IO::print(Menu::getRulesMenu());
                 break;
+            }
             case 1:
                 this->handleGameplay();
             case 3:
+            {
                 isGameOver = true;
                 break;
+            }
             default:
-            break;
+                break;
                 //IO::print(Menu::getCrashMenu());
+        }
     }
 }
 
@@ -38,27 +44,27 @@ void GameHandler::handleGameplay()
     // Initialization before start
     pair<Player, Player> players = std::move(this->createPlayers());
     this->turn = 1;
-    pair<int, string> playerMove = 0;
+    pair<int, string> playerMove{};
     bool isGameOver = false;
-    std::unique_ptr<Table> tablePtr = std::make_unique();
+    std::unique_ptr<Table> tablePtr = std::make_unique<Table>();
 
     // Print for user convenience
-    IO::print(tablePtr->getTableWithFieldNumbers());
-    IO::print("\n"); //todo: make it nicer
+    IO::printContainer<std::vector<string>>(tablePtr->getTableWithFieldNumbers());
+    IO::print<string>("\n"); //todo: make it nicer
 
     // As long as gameplay continue
     while (not isGameOver && this->turn < 10)
     {
-        IO::print(tablePtr->getTable());
-        if(this->isTurnEven())
+        IO::printContainer<vector<string>>(tablePtr->getTable());
+        //if(this->isTurnEven())
             //IO::print(players.second.getName() + Menu::getYourTurnMenu());
-        else
+        //else
             //IO::print(players.first.getName() + Menu::getYourTurnMenu());
 
         //IO::print(Menu::getAskForMoveMenu());
-        PlayerMove = std::move(this->getPlayerMove());
+        playerMove = std::move(this->getPlayerMove());
         tablePtr -> updateTable(tablePtr, playerMove.first, playerMove.second);
-        this->updatePlayerMatrix(players, playerMove.second);
+        this->updatePlayerMatrix(players, playerMove.first);
 
         if(this->isWinningCombo(players))
         {
@@ -80,10 +86,10 @@ short GameHandler::getPlayerChoiceAtBeginning()
     return 0;
 }
 
-bool GameHandler::isWinningCombo(const pair<Player, Player>& players)
+bool GameHandler::isWinningCombo(pair<Player, Player>& players)
 {
     if(this->isTurnEven())
-        return players.second.getIsWinningComboInMoveMatrix()
+        return players.second.getIsWinningComboInMoveMatrix();
     else
         return players.first.getIsWinningComboInMoveMatrix();
 }
@@ -94,14 +100,14 @@ std::pair<Player, Player> GameHandler::createPlayers()
     auto nameForFirstPlayer = this->getNameForPlayer();
     auto nameForSecondPlayer = this->getNameForPlayer();
 
-    return std::make_pair(Player(nameFoFirstPlayer), Player(nameForSecondPlayer));
+    return std::make_pair(Player(nameForFirstPlayer), Player(nameForSecondPlayer));
 }
 
 /*  Asks for player name and returns it */
 string GameHandler::getNameForPlayer()
 {
-    IO::print(getAskForNameMenu());
-    return IO::get();
+    //IO::print(getAskForNameMenu());
+    return IO::get<string>();
 }
 
 /* Returns true if turn is even number */
@@ -117,17 +123,21 @@ bool GameHandler::isTurnEven()
 pair<int, string> GameHandler::getPlayerMove()
 {
     auto moveField = 0;
-    auto moveValue = "";
+    string moveValue = "";
+    pair<int, string> move{};
 
     do
     {
         //IO::print(Menu::getAskForMoveFieldMenu());
-        moveField = IO::get();
+        moveField = IO::get<int>();
         //IO::print(Menu::getAskForMoveValuedMenu());
-        moveValue = IO::get();
-    } while (not this->isValidMove(std::make_pair<int, string>(moveField, moveValue)));
+        moveValue = IO::get<string>();
 
-    return tempMove;
+        move.first = moveField;
+        move.second = moveValue;
+    } while (not this->isValidMove(move));
+
+    return move;
 }
 
 /*  Checks if whole move is valid.
@@ -148,12 +158,13 @@ bool GameHandler::isValidMoveField(const int move)
 /* Returns true if value is valid */
 bool GameHandler::isValidMoveValue(const string value)
 {
-    return value == "+" || value == "O";
+    return (value == "+" || value == "O");
 }
+
 /* Updates move matrix accordingly to first or second player based on given turn */
-void GameHandler::updatePlayerMatrix(pair<Player, Player>& players, const short uint move)
+void GameHandler::updatePlayerMatrix(pair<Player, Player>& players, const short unsigned int move)
 {
-    if(this->isTurnEven)
+    if(this->isTurnEven())
         players.second.addToMoveMatrix(move);
     else
         players.first.addToMoveMatrix(move);
