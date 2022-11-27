@@ -25,9 +25,34 @@ set<unsigned short> Player::getMoveMatrix()
 }
 
 /*  Returns true ig f in move matrix there is combination of fields that means winning.
-    e.g. [1, 2, 3] or [1, 5, 9]
+    Possible winning combos:
+        [1,2,3]
+        [1,4,7]
+        [1,5,9]
+        [4,5,6]
+        [7,8,9]
+        [2,5,8]
+        [3,6,9]
+        [3,5,7]
 */
 bool Player::getIsWinningComboInMoveMatrix()
 {
-    return true;
+    vector<set<int>> winningCombos {
+        {1, 2, 3},
+        {1, 4, 7},
+        {1, 5, 9},
+        {4, 5, 6},
+        {7, 8, 9},
+        {2, 5, 8},
+        {3, 6, 9},
+        {3, 5, 7}
+    };
+    auto result = false;
+
+    for(const auto combo : winningCombos)
+        if(std::search(this->moveMatrix.begin(), this->moveMatrix.end(),
+                        combo.begin(), combo.end()) != this->moveMatrix.end())
+            result = true;
+
+    return result;
 }

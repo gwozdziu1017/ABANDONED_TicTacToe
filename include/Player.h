@@ -5,9 +5,11 @@
 #pragma once
 #include <string>
 #include <set>  // moveMatrix
+#include <vector> // winningCombos
 
 using std::string;
 using std::set;
+using std::vector;
 
 class Player
 {
