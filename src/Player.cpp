@@ -6,6 +6,12 @@ void Player::setName(const string _name)
     this->name = _name;
 }
 
+/* Sets sign for player X or O */
+void Player::setSign(const string _sign)
+{
+    this->sign = _sign;
+}
+
 /* Adding new element to container holding all moves player have done in game */
 void Player::addToMoveMatrix(const unsigned short move)
 {
@@ -16,6 +22,12 @@ void Player::addToMoveMatrix(const unsigned short move)
 string Player::getName()
 {
     return this->name;
+}
+
+/* Returns player sign */
+const string Player::getSign()
+{
+    return this->sign;
 }
 
 /* Returns whole moveMatrix*/
